@@ -1,24 +1,60 @@
 package net.edarling.mobile;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
 import com.phonegap.DroidGap;
 
-public class NPNActivity extends DroidGap
-{
+/**
+ * Main activity.
+ * Opens the WebView for the Phonegap framework
+ * Is called as well as PendingIntent by clicking on message in notification tab.
+ *
+ *
+ * User: tmaus (maus@pirack.com)
+ */
+public class NPNActivity extends DroidGap{
 
-    public void onCreate(Bundle savedInstanceState)
-    {
-        NPNPlugin.getInstance();
+    private final static String TAG = "NPNActivity";
 
-        super.onCreate(savedInstanceState);
+    /**
+     *
+     * @param b
+     */
+    public void onCreate(Bundle b){
+        super.onCreate(b);
         super.loadUrl("file:///android_asset/www/index.html");
+
+        if(b!=null){
+            processNotificationBoot(b);
+        }
     }
 
+    /**
+     *
+     * @param intent
+     */
+    public void onNewIntent(Intent intent){
+        if(intent.getExtras()!=null){
+            processNotificationBoot(intent.getExtras());
+        }
+    }
 
+    /**
+     *  Checks for NOTIFICATION_BOOT flag and calls plugin accordingly.
+     *
+     * @param b
+     */
+    private void processNotificationBoot(Bundle b){
+        // might be useful for debugging
+        for(String key: b.keySet()){
+            Log.d(TAG,"key:"+key+", value:"+b.get(key));
+        }
+
+        if(b.containsKey(NPNC2DMReceiver.NOTIFICATION_BOOT)){
+            NPNPlugin plugin =  NPNPlugin.getInstance();
+            plugin.deliverNotification(b);
+        }
+    }
 }

@@ -1,8 +1,5 @@
 package net.edarling.mobile;
 
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -14,24 +11,21 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Created by IntelliJ IDEA.
- * User: tmaus
- * Date: 27.03.12
- * Time: 11:36
- * To change this template use File | Settings | File Templates.
+ * Responsible for processing incoming notifications sent to our package signature.
+ *
+ * User: tmaus (maus@pirack.com)
  */
 public class NPNC2DMReceiver extends BroadcastReceiver {
 
     private static String KEY = "c2dmPref";
     private static String REGISTRATION_KEY = "registrationKey";
     private final String TAG = "NPNC2DMReceiver";
-    private final String LS_PAYLOAD_KEY = "notification_payload";
+    public static  final String NOTIFICATION_BOOT = "notificationBoot";
     
     
     public void onReceive(Context context, Intent intent) {
@@ -56,10 +50,12 @@ public class NPNC2DMReceiver extends BroadcastReceiver {
             Notification notification = new Notification(icon, tickerText, System.currentTimeMillis());
             Intent mainIntent = new Intent(Intent.ACTION_MAIN);
             mainIntent.setClass(context, NPNActivity.class);
-            mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mainIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            mainIntent.putExtras(intent.getExtras());
+            mainIntent.putExtra(NOTIFICATION_BOOT,true);
 
             // Intent that is called once user clicks on notification
-            PendingIntent contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, mainIntent, 0);
+            PendingIntent contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, mainIntent, PendingIntent.FLAG_CANCEL_CURRENT);
             notification.setLatestEventInfo(context, "eDarling", tickerText, contentIntent);
             nm.notify(1, notification);
 
@@ -75,11 +71,9 @@ public class NPNC2DMReceiver extends BroadcastReceiver {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(layout);
             toast.show();
-
-
         }else {
         
-        Log.w(TAG,"action: " + intent.getAction() + " does not match");
+            Log.w(TAG,"action: " + intent.getAction() + " has no match !!!");
         }
     }
 

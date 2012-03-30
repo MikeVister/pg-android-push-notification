@@ -10,11 +10,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 /**
- * Created by IntelliJ IDEA.
- * User: tmaus  (maus@pirack.com)
- * Date: 27.03.12
- * Time: 10:06
+ * Implementation of a Phonegap plugin.
+ * Responsible for the communication between JS layer and Java layer.
+ *
+ *
+ * User: tmaus (maus@pirack.com)
  */
 public class NPNPlugin extends Plugin{
 
@@ -104,8 +106,6 @@ public class NPNPlugin extends Plugin{
         Log.d(TAG,"notification message on delivery: " + jo.toString());
         this.sendJavascript(String.format("window.plugins.NPNPlugin.notificationCallback(%s);", jo.toString()));
     }
-
-
 
     /**
      *
