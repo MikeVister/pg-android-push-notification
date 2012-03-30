@@ -30,6 +30,7 @@
                 <category android:name="net.edarling.mobile" />
             </intent-filter>
         </receiver>
+        <activity android:name="net.edarling.mobile.NotificationDialogActivity" />
 
         <activity android:name="net.edarling.mobile.NPNActivity"
                   android:label="@string/app_name">
