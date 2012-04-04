@@ -18,6 +18,7 @@ public class NPNActivity extends DroidGap{
 
     private final static String TAG = "NPNActivity";
 
+
     /**
      *
      * @param b
@@ -56,5 +57,29 @@ public class NPNActivity extends DroidGap{
             NPNPlugin plugin =  NPNPlugin.getInstance();
             plugin.deliverNotification(b);
         }
+    }
+
+    /**
+     *
+     */
+    protected void onPause() {
+        super.onPause();
+        NPNPlugin.getInstance().setIsRunning(false);
+    }
+
+    /**
+     *
+     */
+    protected void onResume() {
+        super.onResume();
+        NPNPlugin.getInstance().setIsRunning(true);
+    }
+
+    /**
+     *
+     */
+    public void onDestroy() {
+        super.onDestroy();
+        NPNPlugin.getInstance().setIsRunning(false);
     }
 }

@@ -29,10 +29,15 @@ public class NPNPlugin extends Plugin{
 
     private static final String TAG = "NPNPlugin";
 
+    // we need the plugin as a singleton for more than one reason
     private static NPNPlugin instance = null;
 
+    //
     private String activatePushCallbackId;
-    
+
+    // indicates, if the app is running in foreground or not
+    private boolean isRunning = false;
+
     public NPNPlugin(){
         instance = this;
     }
@@ -59,6 +64,7 @@ public class NPNPlugin extends Plugin{
 
         if(BOOTSTRAP.equals(action)){
             Log.i(TAG,"plugin properly bootstrapped");
+            isRunning = true;
             return new PluginResult(PluginResult.Status.NO_RESULT);
         }
 
@@ -105,6 +111,22 @@ public class NPNPlugin extends Plugin{
         }
         Log.d(TAG,"notification message on delivery: " + jo.toString());
         this.sendJavascript(String.format("window.plugins.NPNPlugin.notificationCallback(%s);", jo.toString()));
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean isRunning(){
+        return isRunning;
+    }
+
+    /**
+     *
+     * @param b
+     */
+    public void setIsRunning(boolean b){
+        isRunning = b;
     }
 
     /**
