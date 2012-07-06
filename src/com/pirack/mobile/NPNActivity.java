@@ -1,10 +1,10 @@
-package net.edarling.mobile;
+package com.pirack.mobile;
 
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import com.phonegap.DroidGap;
+import org.apache.cordova.DroidGap;
 
 /**
  * Main activity.

@@ -16,10 +16,10 @@ NPNPlugin.prototype.notificationCallback = function(e){
 };
 
 PhoneGap.addConstructor(function(){
-console.log("register NativePushNotification plugin @ PG");
-if(!window.plugins){
-    window.plugins = {};
-}
+    console.log("register NativePushNotification plugin @ PG");
+    if(!window.plugins){
+        window.plugins = {};
+    }
     window.plugins.NPNPlugin = new NPNPlugin();
 
     // bind plugin to js to allow processing of incoming notifications

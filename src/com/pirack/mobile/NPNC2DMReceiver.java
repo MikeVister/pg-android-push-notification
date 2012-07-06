@@ -1,4 +1,4 @@
-package net.edarling.mobile;
+package com.pirack.mobile;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -39,9 +39,9 @@ public class NPNC2DMReceiver extends BroadcastReceiver {
             CharSequence tickerText;
 
             try{
-                tickerText = intent.getExtras().get("message").toString();
+                tickerText = intent.getExtras().get("msg").toString();
             }catch(NullPointerException npe){
-                tickerText = "Dude, no key=message has been provided. ";
+                tickerText = "Dude, no key=msg has been provided. ";
             }
 
             // If app is in foreground, push message back to JS layer
@@ -52,6 +52,7 @@ public class NPNC2DMReceiver extends BroadcastReceiver {
                 NotificationManager nm = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
                 int icon = R.drawable.icon_small;
                 Notification notification = new Notification(icon, tickerText, System.currentTimeMillis());
+                notification.flags = Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
                 Intent mainIntent = new Intent(Intent.ACTION_MAIN);
                 mainIntent.setClass(context, NPNActivity.class);
                 mainIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -60,7 +61,7 @@ public class NPNC2DMReceiver extends BroadcastReceiver {
 
                 // Intent that is called once user clicks on notification
                 PendingIntent contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, mainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                notification.setLatestEventInfo(context, "eDarling", tickerText, contentIntent);
+                notification.setLatestEventInfo(context, "Jax", tickerText, contentIntent);
                 nm.notify(1, notification);
 
                 // display a toast to the user to inform him on the incoming notification

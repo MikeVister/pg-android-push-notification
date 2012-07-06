@@ -1,11 +1,11 @@
-package net.edarling.mobile;
+package com.pirack.mobile;
 
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import com.phonegap.api.Plugin;
-import com.phonegap.api.PluginResult;
+import org.apache.cordova.api.Plugin;
+import org.apache.cordova.api.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,14 +18,14 @@ import org.json.JSONObject;
  *
  * User: tmaus (maus@pirack.com)
  */
-public class NPNPlugin extends Plugin{
+public class NPNPlugin extends Plugin {
 
     public static final String BOOTSTRAP = "bootstrap";
     
     public static final String ACTIVATE_NOTIFICATIONS  ="activatePush";
     public static final String DEACTIVATE_NOTIFICATIONS = "deactivatePush";
     
-    public final static String SENDER_EMAIL = "edarling.mobile@googlemail.com";
+    public final static String SENDER_ID = "652667209715";
 
     private static final String TAG = "NPNPlugin";
 
@@ -135,8 +135,8 @@ public class NPNPlugin extends Plugin{
     private void activatePush(){
         Log.d(TAG,"activate push");
         Intent registrationIntent = new Intent("com.google.android.c2dm.intent.REGISTER");
-        registrationIntent.putExtra("app", PendingIntent.getBroadcast(ctx, 0, new Intent(), 0)); // boilerplate
-        registrationIntent.putExtra("sender", SENDER_EMAIL);
+        registrationIntent.putExtra("app", PendingIntent.getBroadcast(ctx.getApplicationContext(), 0, new Intent(), 0)); // boilerplate
+        registrationIntent.putExtra("sender", SENDER_ID);
         ctx.getApplicationContext().startService(registrationIntent);
     }
 
@@ -146,7 +146,7 @@ public class NPNPlugin extends Plugin{
     private void deactivatePush(){
         Log.d(TAG,"deactivate push");
         Intent unregIntent = new Intent("com.google.android.c2dm.intent.UNREGISTER");
-        unregIntent.putExtra("app", PendingIntent.getBroadcast(ctx, 0, new Intent(), 0));
+        unregIntent.putExtra("app", PendingIntent.getBroadcast(ctx.getApplicationContext(), 0, new Intent(), 0));
         ctx.getApplicationContext().startService(unregIntent);
     }
 
