@@ -18,7 +18,6 @@ public class NPNActivity extends DroidGap{
 
     private final static String TAG = "NPNActivity";
 
-
     /**
      *
      * @param b

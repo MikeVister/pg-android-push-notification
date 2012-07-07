@@ -77,15 +77,11 @@ public class NPNC2DMReceiver extends BroadcastReceiver {
                 toast.setView(layout);
                 toast.show();
             }
-
-
         }else {
-        
             Log.w(TAG,"action: " + intent.getAction() + " has no match !!!");
         }
     }
 
-    
     private void handleRegistration(Context context, Intent intent) {
         Log.d(TAG,"handling registration");
         
@@ -118,6 +114,5 @@ public class NPNC2DMReceiver extends BroadcastReceiver {
             editor.commit();
             NPNPlugin.getInstance().deliverActivationResult(registration,true);
         }
-        
     }
 }

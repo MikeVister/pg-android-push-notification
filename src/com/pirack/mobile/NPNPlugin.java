@@ -24,7 +24,8 @@ public class NPNPlugin extends Plugin {
     
     public static final String ACTIVATE_NOTIFICATIONS  ="activatePush";
     public static final String DEACTIVATE_NOTIFICATIONS = "deactivatePush";
-    
+
+    // GCM project id
     public final static String SENDER_ID = "652667209715";
 
     private static final String TAG = "NPNPlugin";
