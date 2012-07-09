@@ -20,11 +20,11 @@ import android.widget.Toast;
  *
  * User: tmaus (maus@pirack.com)
  */
-public class NPNC2DMReceiver extends BroadcastReceiver {
+public class NPNReceiver extends BroadcastReceiver {
 
     private static String KEY = "c2dmPref";
     private static String REGISTRATION_KEY = "registrationKey";
-    private final String TAG = "NPNC2DMReceiver";
+    private final String TAG = "NPNReceiver";
     public static  final String NOTIFICATION_BOOT = "notificationBoot";
     
     
