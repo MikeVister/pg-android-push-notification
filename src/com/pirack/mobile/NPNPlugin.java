@@ -26,7 +26,7 @@ public class NPNPlugin extends Plugin {
     public static final String DEACTIVATE_NOTIFICATIONS = "deactivatePush";
 
     // GCM project id
-    public final static String SENDER_ID = "652667209715";
+    public final static String SENDER_ID = "42";
 
     private static final String TAG = "NPNPlugin";
 
@@ -136,7 +136,7 @@ public class NPNPlugin extends Plugin {
     private void activatePush(){
         Log.d(TAG,"activate push");
         Intent registrationIntent = new Intent("com.google.android.c2dm.intent.REGISTER");
-        registrationIntent.putExtra("app", PendingIntent.getBroadcast(ctx.getApplicationContext(), 0, new Intent(), 0)); // boilerplate
+        registrationIntent.putExtra("app", PendingIntent.getBroadcast(ctx.getApplicationContext(), 0, new Intent(), 0));
         registrationIntent.putExtra("sender", SENDER_ID);
         ctx.getApplicationContext().startService(registrationIntent);
     }
