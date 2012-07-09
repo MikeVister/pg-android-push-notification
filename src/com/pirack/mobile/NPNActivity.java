@@ -52,7 +52,7 @@ public class NPNActivity extends DroidGap{
             Log.d(TAG,"key:"+key+", value:"+b.get(key));
         }
 
-        if(b.containsKey(NPNC2DMReceiver.NOTIFICATION_BOOT)){
+        if(b.containsKey(NPNReceiver.NOTIFICATION_BOOT)){
             NPNPlugin plugin =  NPNPlugin.getInstance();
             plugin.deliverNotification(b);
         }
