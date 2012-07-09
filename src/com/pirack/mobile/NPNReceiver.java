@@ -22,8 +22,6 @@ import android.widget.Toast;
  */
 public class NPNReceiver extends BroadcastReceiver {
 
-    private static String KEY = "c2dmPref";
-    private static String REGISTRATION_KEY = "registrationKey";
     private final String TAG = "NPNReceiver";
     public static  final String NOTIFICATION_BOOT = "notificationBoot";
     
@@ -53,6 +51,7 @@ public class NPNReceiver extends BroadcastReceiver {
                 int icon = R.drawable.icon_small;
                 Notification notification = new Notification(icon, tickerText, System.currentTimeMillis());
                 notification.flags = Notification.DEFAULT_LIGHTS | Notification.FLAG_AUTO_CANCEL;
+
                 Intent mainIntent = new Intent(Intent.ACTION_MAIN);
                 mainIntent.setClass(context, NPNActivity.class);
                 mainIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -108,10 +107,6 @@ public class NPNReceiver extends BroadcastReceiver {
             Log.d(TAG, "unregistered device, no need for a msg");
         } else if (registration != null) {
             Log.d(TAG, "fetched registrationId:" + registration);
-            SharedPreferences.Editor editor =
-                    context.getSharedPreferences(KEY, Context.MODE_PRIVATE).edit();
-            editor.putString(REGISTRATION_KEY, registration);
-            editor.commit();
             NPNPlugin.getInstance().deliverActivationResult(registration,true);
         }
     }
