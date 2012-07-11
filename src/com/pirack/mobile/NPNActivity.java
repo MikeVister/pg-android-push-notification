@@ -26,7 +26,13 @@ public class NPNActivity extends DroidGap{
         super.onCreate(b);
         super.loadUrl("file:///android_asset/www/index.html");
 
+        if(getIntent().getExtras()!=null){
+            Log.d(TAG,"intent has extras; app is booting");
+            processNotificationBoot(getIntent().getExtras());
+        }
+
         if(b!=null){
+            Log.d(TAG,"booting via notification");
             processNotificationBoot(b);
         }
     }
@@ -52,9 +58,11 @@ public class NPNActivity extends DroidGap{
             Log.d(TAG,"key:"+key+", value:"+b.get(key));
         }
 
+        // on app boot or resume, delay delivery of notification to allow pg to fully bootstrap
         if(b.containsKey(NPNReceiver.NOTIFICATION_BOOT)){
-            NPNPlugin plugin =  NPNPlugin.getInstance();
-            plugin.deliverNotification(b);
+            Intent i = new Intent(this,NPNDelayedDeliveryIntent.class);
+            i.putExtras(b);
+            startService(i);
         }
     }
 
